@@ -1,6 +1,6 @@
 # Pre-qualify
 
-## Eligibility for a credit line
+## Eligibility for a line of credit
 
 > Code samples
 
