@@ -499,17 +499,17 @@ Please note that this process is not set in stone, so we can always skip a step 
 </aside>
 <h3 id='platform-onboarding-steps'>Platform Onboarding Steps</h3>
 <p>There are roughly 6 steps in the integration process.</p>
-<h4 id='1-transactional-data-samples'>1. Transactional Data Samples</h4>
+<h3 id='1-transactional-data-samples'>1. Transactional Data Samples</h3>
 <p>In this step, you provide us with platform transactional data samples, which will be used by our data science team to train our algorithms.</p>
-<h4 id='2-real-transactional-data'>2. Real Transactional Data</h4>
+<h3 id='2-real-transactional-data'>2. Real Transactional Data</h3>
 <p>We will also need your platform API endpoint that will be used for retrieving transactional data. It must be capable of being queried by business id (cnpj/cpf). This allows us to perform real-time credit decisions.</p>
 
 <p>We understand that providing an external API endpoint may not be an option for your platform, so we also provide 2 alternatives:
 * You can attach the relevant data on every request where transactional data is needed
 * You can send us your transactional data and we will process everything offline.</p>
-<h4 id='3-api-walkthrough'>3. API Walkthrough</h4>
+<h3 id='3-api-walkthrough'>3. API Walkthrough</h3>
 <p>With the samples processed and an accessible API endpoint, we will schedule an API walkthrough where your assigned engineer will give you an overview of the Flow API, tailored to your platform, and explain relevant API calls and the suggested order in which to use them.</p>
-<h4 id='4-sandbox-credentials'>4. Sandbox Credentials</h4>
+<h3 id='4-sandbox-credentials'>4. Sandbox Credentials</h3>
 <p>A sandbox environment that replicates the production API will be configured for you within 3 business days.
 An email with your credentials will be sent. Note that in this environment events such as loan processing and account registration might appear faster than in production to make it easier to test your integration.</p>
 <h3 id='5-integration'>5. Integration</h3>
