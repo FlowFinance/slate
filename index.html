@@ -316,6 +316,11 @@
                   <li>
                     <a href="#getting-started" class="toc-h2 toc-link" data-title="Getting started">Getting started</a>
                   </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#additional-infomation" class="toc-h1 toc-link" data-title="Additional Infomation">Additional Infomation</a>
+              <ul class="toc-list-h2">
                   <li>
                     <a href="#kyc" class="toc-h2 toc-link" data-title="KYC">KYC</a>
                   </li>
@@ -356,7 +361,7 @@
             <a href="#pre-qualify" class="toc-h1 toc-link" data-title="Pre-qualify">Pre-qualify</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#eligibility-for-a-credit-line" class="toc-h2 toc-link" data-title="Eligibility for a credit line">Eligibility for a credit line</a>
+                    <a href="#eligibility-for-a-line-of-credit" class="toc-h2 toc-link" data-title="Eligibility for a line of credit">Eligibility for a line of credit</a>
                   </li>
               </ul>
           </li>
@@ -449,72 +454,87 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Flow Finance API, which allows platforms to quickly and programatically issue loans to their users.</p>
+<p>Learn how to use the Flow Finance <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a> API, which allows platforms to quickly and programmatically issue loans to their users.</p>
 
-<p>We strived to make the API easy to used and hope you find it so. </p>
+<p>We&#39;ve strived to make our API easy to use and hope you find it so.</p>
 
-<p>If you have any suggestions on how we can make it even easier, feel free to get in touch.</p>
-<h2 id='overview'>Overview</h2>
-<p>A brief, high-level overview of how to use the API</p>
+<p>If you have any suggestions on how we can make it even easier, feel free to get in touch with us.</p>
+
+<p>Follow the steps below to get started:</p>
 
 <ul>
-<li>Your platform and products will be registered, and you will receive an API token.</li>
-<li>Using the API token you can start creating Accounts for your users.</li>
-<li>(Optional) You can use our Prequalify endpoint to check if your user might be ineligible for an Account before registration.</li>
-<li>Create Accounts for your users, that consists of Person and/or Business entities, according to your product.</li>
-<li>Upload the necessary documents for KYC proccess.</li>
-<li>Get your user&#39;s acceptance on our Terms of Service.</li>
-<li>The Account will then go through our internal analysis.</li>
-<li>After approval, a credit line will be made available to the account. </li>
-<li>Using the Loan Preview endpoint you can show offers to your users, according to the product specified.</li>
-<li>Each Loan Preview is associated with an offer-token.</li>
-<li>Submit an offer-token to the Loan endpoint to create a Loan.</li>
-<li>With a Loan created, you can show the contract to your user and get his acceptance (digital signature). </li>
-<li>Submit the user&#39;s signature and the Loan will then be issued.</li>
+<li>Contact our sales team in order to register your platform and get access to API credentials.</li>
+<li>You will be assigned an Integration Engineer who will guide you through the integration process.</li>
+<li>Create accounts on behalf of your users following the KYC (Know Your Customer) guidelines.</li>
+<li>Upload documents that verify your user&#39;s identity.</li>
+<li>Wait for the account approval.</li>
+<li>Issue a loan.</li>
+</ul>
+
+<p>Since a Flow Account is transparent to your platform users, you are in charge of all interactions with your users and for gathering all the information needed to verify the account. It&#39;s also up to you to build the onboarding processes, UIs, and reporting functionalities.</p>
+<h2 id='overview'>Overview</h2>
+<p>A brief, high-level technical overview of how to use the API.</p>
+
+<ul>
+<li>Your platform details and configuration will be set up for you by our team. Meanwhile, you will receive API credentials to be able to make requests.</li>
+<li>Using the above credentials you will be able to create accounts for your users.</li>
+<li>(Optional) You can use the <code>pre-qualify</code> endpoint to check if your user might not be eligible for an account before registration. This is not a mandatory step but it will help you to avoid offering credit to users that aren&#39;t eligible.</li>
+<li>Upload business and beneficial owners information.</li>
+<li>Upload all the necessary documents, verifying business and persons identities.</li>
+<li>Collect your user&#39;s acceptance of our Terms of Service.</li>
+<li>The newly created account will then go through an internal analysis (it usually takes less than 24 hours).</li>
+<li>After account approval, a line of credit will be established under the account.</li>
+<li>Using the <code>loan preview</code> endpoint, you can get available offers.</li>
+<li>Show these offers to your use and capture the corresponding offer token.</li>
+<li>Submit an offer-token to the <code>loan</code> endpoint to initiate the loan creation process.</li>
+<li>Once a loan has been successfully created, show the Loan Agreement Terms to your user and collect their acceptance (digital signature).</li>
+<li>Submit the above digital signature and the loan will then be issued.</li>
 </ul>
 <h2 id='getting-started'>Getting started</h2>
 <aside class="notice">
-Contact our sales team in order to register your platform and get an API token.
+Contact our sales team to register your platform and get API credentials.
 You will then be assigned an Integration Engineer who will guide you through the integration process.
 
 Please note that this process is not set in stone, so we can always skip a step or work in parallel.
 </aside>
-<h3 id='onboarding'>Onboarding</h3><h4 id='transactional-data-samples'>Transactional Data Samples</h4>
+<h3 id='platform-onboarding-steps'>Platform Onboarding Steps</h3>
+<p>There are roughly 6 steps in the integration process.</p>
+<h4 id='1-transactional-data-samples'>1. Transactional Data Samples</h4>
 <p>In this step, you provide us with platform transactional data samples, which will be used by our data science team to train our algorithms.</p>
-<h4 id='real-transactional-data'>Real Transactional Data</h4>
+<h4 id='2-real-transactional-data'>2. Real Transactional Data</h4>
 <p>We will also need your platform API endpoint that will be used for retrieving transactional data. It must be capable of being queried by business id (cnpj/cpf). This allows us to perform real-time credit decisions.</p>
 
 <p>We understand that providing an external API endpoint may not be an option for your platform, so we also provide 2 alternatives:
-* You can attach the relevant data on every request where transactional data is needed 
+* You can attach the relevant data on every request where transactional data is needed
 * You can send us your transactional data and we will process everything offline.</p>
-<h4 id='api-walkthrough'>API Walkthrough</h4>
-<p>With the samples processed and an accessible api endpoint, we will schedule an API walkthrough where your assigned engineer will give you an overview of the Flow API, tailored to your platform, and explain relevant API calls and the suggested order in which to use them.</p>
-<h4 id='sandbox-credentials'>Sandbox Credentials</h4>
+<h4 id='3-api-walkthrough'>3. API Walkthrough</h4>
+<p>With the samples processed and an accessible API endpoint, we will schedule an API walkthrough where your assigned engineer will give you an overview of the Flow API, tailored to your platform, and explain relevant API calls and the suggested order in which to use them.</p>
+<h4 id='4-sandbox-credentials'>4. Sandbox Credentials</h4>
 <p>A sandbox environment that replicates the production API will be configured for you within 3 business days.
 An email with your credentials will be sent. Note that in this environment events such as loan processing and account registration might appear faster than in production to make it easier to test your integration.</p>
-<h3 id='integration'>Integration</h3>
-<p>This is the phase where we will describe KYC compliance requirements, security best practices and general guidelines. </p>
+<h3 id='5-integration'>5. Integration</h3>
+<p>This is the phase where we will describe KYC compliance requirements, security best practices, and general guidelines.</p>
 
-<p>We urge you to thoroughly examine all of the api endpoints in your sandbox environment, since it replicates our real production platform. This is also the time to bring us any suggestions or customizations that would make our product better for your use case. Be sure to let us know of any problems you may encounter.</p>
-<h3 id='testing-and-review'>Testing and Review</h3>
-<p>During the final phase, we will work with you to make sure your integration is ready for live release, performing security checks and manual tests. </p>
+<p>We urge you to thoroughly examine all of the API endpoints in your sandbox environment since it replicates our real production platform. This is also the time to bring us any suggestions or customizations that would make our product better for your use case. Be sure to let us know of any problems you may encounter.</p>
+<h3 id='6-testing-and-review'>6. Testing and Review</h3>
+<p>During the final phase, we will work with you to make sure your integration is ready for live release, performing security checks and manual tests.</p>
 
 <p>Once we&#39;ve performed these checks, a set of production credentials will be generated for the live environment.</p>
-<h2 id='kyc'>KYC</h2>
-<p>The collection of KYC documentation from your users is an important step in the onboarding process.
-This not only helps facilitate compliance with regulators, but also helps prevent fraudulent user activity. </p>
+<h1 id='additional-infomation'>Additional Infomation</h1><h2 id='kyc'>KYC</h2>
+<p>The collection of Know Your Customer (KYC) documentation from your users is an important step in the onboarding process.
+This not only helps facilitate compliance with regulators but also helps prevent fraudulent user activity.</p>
 
-<p>The documents collected for both businesses and individuals helps us understand who our customers are and the nature of their relationship with us.</p>
+<p>The documents collected for both businesses and individuals help us understand who our customers are and the nature of their relationship with us.</p>
 
-<p>There are two steps to these requirements: 
-  * Gathering information about the platform user (business) and associated individuals (persons); 
-  * Veryfing the information is current and accurate.</p>
+<p>There are two steps to these requirements:
+  * Gathering information about the platform user (business) and associated individuals (persons);
+  * Verifying the information is current and accurate.</p>
 
 <p>Different platforms and limits will have different KYC requirements because the underlying risks can vary greatly. We encourage you to collect more KYC than our minimum requirements.</p>
 <h3 id='types-of-information'>Types of Information</h3>
 <p>There are two types of information we need to collect: business information (name, cnpj, address, etc) and information about the owners.</p>
 <h3 id='how-we-validate'>How We Validate</h3>
-<p>Submitted user information are validated through public and private databases and partner APIs. 
+<p>Submitted user information is validated through public and private databases and partner APIs.
 Physical documents, such as government IDs, are validated through automated software, which incorporates:</p>
 
 <ul>
@@ -522,11 +542,11 @@ Physical documents, such as government IDs, are validated through automated soft
 <li>Facial detection</li>
 </ul>
 <h3 id='physical-documents'>Physical Documents</h3>
-<p>Physical documents must be encoded to Base64 before being submitted to our API. 
+<p>Physical documents must be encoded to Base64 before being submitted to our API.
 You can submit these documents separately or (preferably) all at once in one API call.</p>
 <h2 id='user-onboarding-process'>User Onboarding Process</h2>
 <ul>
-<li>First, you will make an API call to create a new account - <code>POST /account</code>. You can either send the business information later - <code>PATCH /account</code>, or within the acount creation process.</li>
+<li>First, you will make an API call to create a new account - <code>POST /account</code>. You can either send the business information later - <code>PATCH /account</code>, or within the account creation process.</li>
 <li>For every beneficial owner of the business, you&#39;ll create a separate Person entity - <code>POST /persons</code>.</li>
 <li>Upload the required documentation - <code>PATCH /account</code> and <code>PATCH /persons</code>.</li>
 <li>Subscribe to <code>accounts.update</code> and <code>persons.update</code> events - <code>POST /webhook_endpoints</code> or poll the appropriate endpoints - <code>GET /accounts/id</code> and <code>GET /persons/id</code>.</li>
@@ -534,7 +554,7 @@ You can submit these documents separately or (preferably) all at once in one API
 <li>If there aren&#39;t any verification problems, wait for the enabled account status change.</li>
 </ul>
 <h2 id='dashboard'>Dashboard</h2>
-<p>A dashboard is provided at <code>/dashboard</code> to which you can login with your credentials and perform the following operations:
+<p>A dashboard is provided at <code>/dashboard</code> to which you can log in with your credentials and perform the following operations:
 - Reset your <code>client_id</code>
 - Browse all accounts registered on your platform, their approval status and line of credit
 - Browse all loans issued on your platform and their statuses</p>
@@ -877,7 +897,7 @@ Note that refresh-token are NOT re-generated.
 <td>none</td>
 </tr>
 </tbody></table>
-<h1 id='pre-qualify'>Pre-qualify</h1><h2 id='eligibility-for-a-credit-line'>Eligibility for a credit line</h2>
+<h1 id='pre-qualify'>Pre-qualify</h1><h2 id='eligibility-for-a-line-of-credit'>Eligibility for a line of credit</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
