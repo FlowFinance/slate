@@ -559,34 +559,34 @@ You can submit these documents separately or (preferably) all at once in one API
 - Browse all accounts registered on your platform, their approval status and line of credit
 - Browse all loans issued on your platform and their statuses</p>
 <h1 id='glossary'>Glossary</h1>
-<p>Here are some of the terms we use throughout our documentation, for ease of reference</p>
+<p>Here are some of the terms we use throughout our documentation, for ease of reference.</p>
 
 <h2 id="glossary-prequalify">Pre-qualify</h2>
 
-<p>The pre-qualify is an optional step that you can use by calling the specific endpoint.
-This endpoint will perform an analysis using publicly available data to perform a pre-validation of the business, to allow you to choose wether or not to offer registration.</p>
+<p><code>Pre-qualification</code> is an optional step that you can take advantadge of by calling the specific endpoint.
+This endpoint will perform an analysis using publicly available data to decide whether the business qualifies for an account. This allows you to choose not to offer loans to users that will not qualify, making you UX better.</p>
 
 <h2 id="glossary-tokens">Platform Tokens</h2>
 
-<p>Two types of JWT tokens can be generated: client and account. </p>
+<p>Two types of JWT tokens can be generated: client and account.</p>
 
 <p><h3 id="glossary-client-tokens">Client Tokens</h2>
-Client tokens refer to your platform tokens; they have full permissions on every API endpoint, being able to perform account creation/deletion and operations on behalf of any account. 
-You should keep these tokens in your backend only and never share with mobile nor web devices. </p>
+Client tokens refer to your platform tokens; they have full permissions on every API endpoint, being able to perform account creation/deletion and operations on behalf of any account.
+You should keep these tokens in your backend only and never share with mobile nor web devices.</p>
 
 <p><h3 id="glossary-account-tokens">Account Tokens</h2>
-Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created.</p>
+Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created. They must always be paired with an <code>account-id</code> header parameters.</p>
 
 <h2 id="glossary-documents">Documents</h2>
 
 <p><h3 id="glossary-physical-docs">Physical Documents</h2>
-Physical documents are the image format of a document that exists in the physical world.</p>
+Physical documents are the image scans or photos of a physical document.</p>
 
-<p>All physical documents have a <code>value</code> and a <code>type</code>, <code>type</code> is the document type (from a list o types) and the <code>value</code> is a string with the actual document, base64-encoded (without mime type).</p>
+<p>All physical documents have a <code>value</code> and a <code>type</code>. <code>type</code> is the document type (ie: driver&#39;s license, passport, etc) and <code>value</code> is a base64 encoded string of the actual document. Note: don&#39;t use a mime type header; we automatically detect the file format.</p>
 
 <p><h3 id="glossary-virtual-docs">Virtual Documents</h2>
-Virtual documents are how we refer to the actual values contained in a document.
-A virtual document can have information such as it&#39;s <code>value</code> (id number), <code>type</code>, <code>expedition date</code> and <code>issuer</code> agency.</p>
+Virtual documents are personally identifiable document besides business id and government id number that might be required.
+A virtual document has a <code>value</code> (business id number, for example), a <code>type</code> (passport, drivers license id), <code>expiration date</code> and <code>issuer</code>.</p>
 <h1 id='oauth'>OAuth</h1>
 <p>We use OAuth2, Grant Type <a href="https://oauth.net/2/grant-types/refresh-token/">&quot;Refresh Token&quot;</a> for authentication.</p>
 
