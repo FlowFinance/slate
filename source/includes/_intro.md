@@ -48,20 +48,20 @@ Please note that this process is not set in stone, so we can always skip a step 
 ### Platform Onboarding Steps
 There are roughly 6 steps in the integration process.
 
-#### 1. Transactional Data Samples
+### 1. Transactional Data Samples
 In this step, you provide us with platform transactional data samples, which will be used by our data science team to train our algorithms.
 
-#### 2. Real Transactional Data
+### 2. Real Transactional Data
 We will also need your platform API endpoint that will be used for retrieving transactional data. It must be capable of being queried by business id (cnpj/cpf). This allows us to perform real-time credit decisions.
 
 We understand that providing an external API endpoint may not be an option for your platform, so we also provide 2 alternatives:
 * You can attach the relevant data on every request where transactional data is needed
 * You can send us your transactional data and we will process everything offline.
 
-#### 3. API Walkthrough
+### 3. API Walkthrough
 With the samples processed and an accessible API endpoint, we will schedule an API walkthrough where your assigned engineer will give you an overview of the Flow API, tailored to your platform, and explain relevant API calls and the suggested order in which to use them.
 
-#### 4. Sandbox Credentials
+### 4. Sandbox Credentials
 A sandbox environment that replicates the production API will be configured for you within 3 business days.
 An email with your credentials will be sent. Note that in this environment events such as loan processing and account registration might appear faster than in production to make it easier to test your integration.
 
