@@ -1,6 +1,6 @@
 # Introduction
 
-Learn how to use the Flow Finance [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer) API, which allows platforms to quickly and programmatically issue loans to their users.
+Learn how to use Flow Finance's [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer) API, which allows platforms to quickly and programmatically issue loans to their users.
 
 We've strived to make our API easy to use and hope you find it so.
 
