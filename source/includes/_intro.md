@@ -15,7 +15,7 @@ Follow the steps below to get started:
   * Wait for the account approval.
   * Issue a loan.
 
-Since a Flow Account is transparent to your platform users, you are in charge of all interactions with your users and for gathering all the information needed to verify the account. It's also up to you to build the onboarding processes, UIs, and reporting functionalities.
+Since Flow Accounts are transparent to your platform users, you are in charge of all interactions with your users and for gathering all the information needed to verify the account. It's also up to you to build the onboarding processes, UIs, and reporting functionalities.
 
 ## Overview
 
