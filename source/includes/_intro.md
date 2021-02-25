@@ -23,12 +23,12 @@ A brief, high-level technical overview of how to use the API.
 
 * Your platform details and configuration will be set up for you by our team. Meanwhile, you will receive API credentials to be able to make requests.
 * Using the above credentials you will be able to create accounts for your users.
-* (Optional) You can use the `pre-qualify` endpoint to check if your user might not be eligible for an account before registration. This is not a mandatory step but it will help you to avoid offering credit to users that aren't eligible.
-* Upload business and beneficial owners information.
+* (Optional) You can use the `pre-qualify` endpoint to check if your user might not be eligible for an account before registration. This is not a mandatory step but it will help you to avoid offering credit to users who aren't eligible.
+* Upload business and beneficial owners' information.
 * Upload all the necessary documents, verifying business and persons identities.
 * Collect your user's acceptance of our Terms of Service.
 * The newly created account will then go through an internal analysis (it usually takes less than 24 hours).
-* After account approval, a line of credit will be established under the account.
+* After account approval, a line of credit will be established for the account.
 * Using the `loan preview` endpoint, you can get available offers.
 * Show these offers to your use and capture the corresponding offer token.
 * Submit an offer-token to the `loan` endpoint to initiate the loan creation process.
