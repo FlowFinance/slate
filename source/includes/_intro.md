@@ -27,11 +27,11 @@ A brief, high-level technical overview of how to use the API.
 * Upload business and beneficial owners' information.
 * Upload all the necessary documents, verifying business and persons identities.
 * Collect your user's acceptance of our Terms of Service.
-* The newly created account will then go through an internal analysis (it usually takes less than 24 hours).
+* The newly-created account will then go through an internal analysis (it usually takes less than 24 hours).
 * After account approval, a line of credit will be established for the account.
-* Using the `loan preview` endpoint, you can get available offers.
-* Show these offers to your use and capture the corresponding offer token.
-* Submit an offer-token to the `loan` endpoint to initiate the loan creation process.
+* Using the `loan preview` endpoint you can get all available offers.
+* Show these offers to your use and store the corresponding offer token for later use.
+* Submit the offer token using the `/loan` endpoint to initiate the loan creation process.
 * Once a loan has been successfully created, show the Loan Agreement Terms to your user and collect their acceptance (digital signature).
 * Submit the above digital signature and the loan will then be issued.
 
