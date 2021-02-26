@@ -71,9 +71,9 @@ This is the phase where we will describe KYC compliance requirements, security b
 We urge you to thoroughly examine all of the API endpoints in your sandbox environment since it replicates our real production platform. This is also the time to bring us any suggestions or customizations that would make our product better for your use case. Be sure to let us know of any problems you may encounter.
 
 ### 6. Testing and Review
-During the final phase, we will work with you to make sure your integration is ready for live release, performing security checks and manual tests.
+During the final phase, we will work with you to make sure your integration is ready to go to production, performing security checks and manual tests.
 
-Once we've performed these checks, a set of production credentials will be generated for the live environment.
+Once we've performed these checks, a set of production credentials will be generated for the production environment.
 
 # Additional Infomation
 
