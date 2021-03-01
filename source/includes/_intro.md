@@ -80,9 +80,9 @@ Once we've performed these checks, a set of production credentials will be gener
 ## KYC
 
 The collection of Know Your Customer (KYC) documentation from your users is an important step in the onboarding process.
-This not only helps facilitate compliance with regulators but also helps prevent fraudulent user activity.
+This not only facilitates compliance with regulators but also helps prevent fraudulent user activity.
 
-The documents collected for both businesses and individuals help us understand who our customers are and the nature of their relationship with us.
+The documents collected for both businesses and individuals also help us understand who our customers are and the nature of their relationship with us.
 
 There are two steps to these requirements:
   * Gathering information about the platform user (business) and associated individuals (persons);
@@ -121,6 +121,6 @@ You can submit these documents separately or (preferably) all at once in one API
 ## Dashboard
 
 A dashboard is provided at `/dashboard` to which you can log in with your credentials and perform the following operations:
-- Reset your `client_id`
-- Browse all accounts registered on your platform, their approval status and line of credit
-- Browse all loans issued on your platform and their statuses
+- Reset your `client_id`.
+- Browse all accounts registered through your platform, their approval status and line of credit.
+- Browse all loans issued through your platform and their detailed information.
