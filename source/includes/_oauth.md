@@ -1,16 +1,16 @@
 # OAuth
 
-We use OAuth2, Grant Type ["Refresh Token"](https://oauth.net/2/grant-types/refresh-token/) for authentication.
+We use a modified OAuth2, Grant Type ["Refresh Token"](https://oauth.net/2/grant-types/refresh-token/) for authentication.
 
-Two types of JWT tokens can be generated: client and account. 
+Two types of JWT tokens can be generated: client and account.
 
-Client tokens refer to your platform tokens; they have full permissions on every API endpoint, being able to perform account creation/deletion and operations on behalf of any account. 
+Client tokens refer to your platform tokens; they have full permissions on every API endpoint and are able to perform account creation/deletion and operations on behalf of any account.
 
 <aside class="warning">
-    You should keep these tokens in your backend only and never share with mobile nor web devices. 
+    You should keep these tokens in your backend only and never share with mobile or web devices.
 </aside>
 
-Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created.
+Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created. If you need to ship credentials to mobile or web devices, this should be used.
 
 ## Perform Login
 
@@ -66,7 +66,7 @@ fetch('/api/v1/oauth/login',
 
 *Generate token pair given username and password in the '`Authorization`' header.*
 
-Authorization header expects '`Basic client_id:client_secret`' where the string `client_id:client_secret` is your client_id and your client_secret base64 encoded. 
+Authorization header expects '`Basic client_id:client_secret`' where the string `client_id:client_secret` is your client_id and your client_secret base64 encoded.
 
 <aside class="notice">
 Optionally, you may include the header param account-id in which case account-specific tokens will be generated.
@@ -122,12 +122,12 @@ Status Code **200**
 
 *Refresh access-token given a refresh-token.*
 
-Refresh an expired access-token with a refresh-token. 
+Refresh an expired access-token with a refresh-token.
 
 <aside class="notice">
 Optionally, you may include the header param `account-id` in which case account-specific tokens will be generated.
 </aside>
-                         
+
 <aside class="warning">
 Note that refresh-token are NOT re-generated.
 </aside>
