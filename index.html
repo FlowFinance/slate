@@ -350,7 +350,7 @@
             <a href="#oauth" class="toc-h1 toc-link" data-title="OAuth">OAuth</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#perform-login" class="toc-h2 toc-link" data-title="Perform Login">Perform Login</a>
+                    <a href="#login" class="toc-h2 toc-link" data-title="Login">Login</a>
                   </li>
                   <li>
                     <a href="#refresh-an-access-token" class="toc-h2 toc-link" data-title="Refresh an Access Token">Refresh an Access Token</a>
@@ -559,12 +559,12 @@ You can submit these documents separately or (preferably) all at once in one API
 - Browse all accounts registered through your platform, their approval status and line of credit.
 - Browse all loans issued through your platform and their detailed information.</p>
 <h1 id='glossary'>Glossary</h1>
-<p>Here are some of the terms we use throughout our documentation, for ease of reference.</p>
+<p>Here are some of the terms we use throughout our documentation for ease of reference.</p>
 
 <h2 id="glossary-prequalify">Pre-qualify</h2>
 
 <p><code>Pre-qualification</code> is an optional step that you can take advantadge of by calling the specific endpoint.
-This endpoint will perform an analysis using publicly available data to decide whether the business qualifies for an account. This allows you to choose not to offer loans to users that will not qualify, making you UX better.</p>
+This endpoint will perform an analysis using publicly available data to decide whether the user qualifies for an account. This allows you to choose not to offer loans to those that will not qualify, making you UX better.</p>
 
 <h2 id="glossary-tokens">Platform Tokens</h2>
 
@@ -572,10 +572,10 @@ This endpoint will perform an analysis using publicly available data to decide w
 
 <p><h3 id="glossary-client-tokens">Client Tokens</h2>
 Client tokens refer to your platform tokens; they have full permissions on every API endpoint, being able to perform account creation/deletion and operations on behalf of any account.
-You should keep these tokens in your backend only and never share with mobile nor web devices.</p>
+You should keep these tokens in your backend only and never share with mobile or web devices.</p>
 
 <p><h3 id="glossary-account-tokens">Account Tokens</h2>
-Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created. They must always be paired with an <code>account-id</code> header parameters.</p>
+Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created. They must always be paired with an <code>account-id</code> header parameter.</p>
 
 <h2 id="glossary-documents">Documents</h2>
 
@@ -599,7 +599,7 @@ A virtual document has a <code>value</code> (business id number, for example), a
 </aside>
 
 <p>Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created. If you need to ship credentials to mobile or web devices, this should be used.</p>
-<h2 id='perform-login'>Perform Login</h2>
+<h2 id='login'>Login</h2>
 <blockquote>
 <p>Code samples</p>
 </blockquote>
@@ -651,7 +651,7 @@ Optionally, you may include the header param account-id in which case account-sp
 </aside>
 
 <aside class="notice">
-Note that refresh-tokens are re-generated on every call and access-tokens are valid for 90 minutes.
+Note that refresh-tokens are re-generated on every call and access-tokens are only valid for 90 minutes.
 </aside>
 
 <h3 id="post__api_v1_oauth_login-parameters">Parameters</h3>
