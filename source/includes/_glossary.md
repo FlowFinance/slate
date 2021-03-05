@@ -14,7 +14,7 @@ Client tokens refer to your platform tokens; they have full permissions on every
 You should keep these tokens in your backend only and never share with mobile or web devices.
 
 <h3 id="glossary-account-tokens">Account Tokens</h2>
-Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created. They must always be paired with an `account-id` header parameters.
+Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created. They must always be paired with an `account-id` header parameter.
 
 <h2 id="glossary-documents">Documents</h2>
 
