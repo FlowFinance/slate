@@ -454,7 +454,7 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Learn how to use the Flow Finance <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a> API, which allows platforms to quickly and programmatically issue loans to their users.</p>
+<p>Learn how to use Flow Finance&#39;s <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">REST</a> API, which allows platforms to quickly and programmatically issue loans to their users.</p>
 
 <p>We&#39;ve strived to make our API easy to use and hope you find it so.</p>
 
@@ -471,22 +471,22 @@
 <li>Issue a loan.</li>
 </ul>
 
-<p>Since a Flow Account is transparent to your platform users, you are in charge of all interactions with your users and for gathering all the information needed to verify the account. It&#39;s also up to you to build the onboarding processes, UIs, and reporting functionalities.</p>
+<p>Since Flow Accounts are transparent to your users, you are in charge of all interactions with your users and for gathering all the information needed to verify the account. It&#39;s also up to you to build the onboarding process, UIs, and reporting functionalities.</p>
 <h2 id='overview'>Overview</h2>
 <p>A brief, high-level technical overview of how to use the API.</p>
 
 <ul>
 <li>Your platform details and configuration will be set up for you by our team. Meanwhile, you will receive API credentials to be able to make requests.</li>
 <li>Using the above credentials you will be able to create accounts for your users.</li>
-<li>(Optional) You can use the <code>pre-qualify</code> endpoint to check if your user might not be eligible for an account before registration. This is not a mandatory step but it will help you to avoid offering credit to users that aren&#39;t eligible.</li>
-<li>Upload business and beneficial owners information.</li>
+<li>(Optional) You can use the <code>pre-qualify</code> endpoint to check if your user might not be eligible for an account before registration. This is not a mandatory step but it will help you to avoid offering credit to users who aren&#39;t eligible.</li>
+<li>Upload business and beneficial owners&#39; information.</li>
 <li>Upload all the necessary documents, verifying business and persons identities.</li>
 <li>Collect your user&#39;s acceptance of our Terms of Service.</li>
-<li>The newly created account will then go through an internal analysis (it usually takes less than 24 hours).</li>
-<li>After account approval, a line of credit will be established under the account.</li>
-<li>Using the <code>loan preview</code> endpoint, you can get available offers.</li>
-<li>Show these offers to your use and capture the corresponding offer token.</li>
-<li>Submit an offer-token to the <code>loan</code> endpoint to initiate the loan creation process.</li>
+<li>The newly-created account will then go through an internal analysis (it usually takes less than 24 hours).</li>
+<li>After account approval, a line of credit will be established for the account.</li>
+<li>Using the <code>loan preview</code> endpoint you can get all available offers.</li>
+<li>Show these offers to your use and store the corresponding offer token for later use.</li>
+<li>Submit the offer token using the <code>/loan</code> endpoint to initiate the loan creation process.</li>
 <li>Once a loan has been successfully created, show the Loan Agreement Terms to your user and collect their acceptance (digital signature).</li>
 <li>Submit the above digital signature and the loan will then be issued.</li>
 </ul>
@@ -517,14 +517,14 @@ An email with your credentials will be sent. Note that in this environment event
 
 <p>We urge you to thoroughly examine all of the API endpoints in your sandbox environment since it replicates our real production platform. This is also the time to bring us any suggestions or customizations that would make our product better for your use case. Be sure to let us know of any problems you may encounter.</p>
 <h3 id='6-testing-and-review'>6. Testing and Review</h3>
-<p>During the final phase, we will work with you to make sure your integration is ready for live release, performing security checks and manual tests.</p>
+<p>During the final phase, we will work with you to make sure your integration is ready to go to production, performing security checks and manual tests.</p>
 
-<p>Once we&#39;ve performed these checks, a set of production credentials will be generated for the live environment.</p>
+<p>Once we&#39;ve performed these checks, a set of production credentials will be generated for the production environment.</p>
 <h1 id='additional-infomation'>Additional Infomation</h1><h2 id='kyc'>KYC</h2>
 <p>The collection of Know Your Customer (KYC) documentation from your users is an important step in the onboarding process.
-This not only helps facilitate compliance with regulators but also helps prevent fraudulent user activity.</p>
+This not only facilitates compliance with regulators but also helps prevent fraudulent user activity.</p>
 
-<p>The documents collected for both businesses and individuals help us understand who our customers are and the nature of their relationship with us.</p>
+<p>The documents collected for both businesses and individuals also help us understand who our customers are and the nature of their relationship with us.</p>
 
 <p>There are two steps to these requirements:
   * Gathering information about the platform user (business) and associated individuals (persons);
@@ -555,9 +555,9 @@ You can submit these documents separately or (preferably) all at once in one API
 </ul>
 <h2 id='dashboard'>Dashboard</h2>
 <p>A dashboard is provided at <code>/dashboard</code> to which you can log in with your credentials and perform the following operations:
-- Reset your <code>client_id</code>
-- Browse all accounts registered on your platform, their approval status and line of credit
-- Browse all loans issued on your platform and their statuses</p>
+- Reset your <code>client_id</code>.
+- Browse all accounts registered through your platform, their approval status and line of credit.
+- Browse all loans issued through your platform and their detailed information.</p>
 <h1 id='glossary'>Glossary</h1>
 <p>Here are some of the terms we use throughout our documentation, for ease of reference.</p>
 
@@ -588,17 +588,17 @@ Physical documents are the image scans or photos of a physical document.</p>
 Virtual documents are personally identifiable document besides business id and government id number that might be required.
 A virtual document has a <code>value</code> (business id number, for example), a <code>type</code> (passport, drivers license id), <code>expiration date</code> and <code>issuer</code>.</p>
 <h1 id='oauth'>OAuth</h1>
-<p>We use OAuth2, Grant Type <a href="https://oauth.net/2/grant-types/refresh-token/">&quot;Refresh Token&quot;</a> for authentication.</p>
+<p>We use a modified OAuth2, Grant Type <a href="https://oauth.net/2/grant-types/refresh-token/">&quot;Refresh Token&quot;</a> for authentication.</p>
 
-<p>Two types of JWT tokens can be generated: client and account. </p>
+<p>Two types of JWT tokens can be generated: client and account.</p>
 
-<p>Client tokens refer to your platform tokens; they have full permissions on every API endpoint, being able to perform account creation/deletion and operations on behalf of any account. </p>
+<p>Client tokens refer to your platform tokens; they have full permissions on every API endpoint and are able to perform account creation/deletion and operations on behalf of any account.</p>
 
 <aside class="warning">
-    You should keep these tokens in your backend only and never share with mobile nor web devices. 
+    You should keep these tokens in your backend only and never share with mobile or web devices.
 </aside>
 
-<p>Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created.</p>
+<p>Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created. If you need to ship credentials to mobile or web devices, this should be used.</p>
 <h2 id='perform-login'>Perform Login</h2>
 <blockquote>
 <p>Code samples</p>
@@ -644,7 +644,7 @@ curl <span class="nt">-X</span> POST /api/v1/oauth/login <span class="se">\</spa
 
 <p><em>Generate token pair given username and password in the &#39;<code>Authorization</code>&#39; header.</em></p>
 
-<p>Authorization header expects &#39;<code>Basic client_id:client_secret</code>&#39; where the string <code>client_id:client_secret</code> is your client_id and your client_secret base64 encoded. </p>
+<p>Authorization header expects &#39;<code>Basic client_id:client_secret</code>&#39; where the string <code>client_id:client_secret</code> is your client_id and your client_secret base64 encoded.</p>
 
 <aside class="notice">
 Optionally, you may include the header param account-id in which case account-specific tokens will be generated.
@@ -764,12 +764,11 @@ Note that refresh-tokens are re-generated on every call and access-tokens are va
 
 <p><em>Refresh access-token given a refresh-token.</em></p>
 
-<p>Refresh an expired access-token with a refresh-token. </p>
+<p>Refresh an expired access-token with a refresh-token.</p>
 
 <aside class="notice">
 Optionally, you may include the header param `account-id` in which case account-specific tokens will be generated.
 </aside>
-                         
 
 <aside class="warning">
 Note that refresh-token are NOT re-generated.
