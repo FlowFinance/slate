@@ -12,7 +12,7 @@ Client tokens refer to your platform tokens; they have full permissions on every
 
 Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created. If you need to ship credentials to mobile or web devices, this should be used.
 
-## Perform Login
+## Login
 
 
 > Code samples
