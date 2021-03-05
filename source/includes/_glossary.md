@@ -11,7 +11,7 @@ Two types of JWT tokens can be generated: client and account.
 
 <h3 id="glossary-client-tokens">Client Tokens</h2>
 Client tokens refer to your platform tokens; they have full permissions on every API endpoint, being able to perform account creation/deletion and operations on behalf of any account.
-You should keep these tokens in your backend only and never share with mobile nor web devices.
+You should keep these tokens in your backend only and never share with mobile or web devices.
 
 <h3 id="glossary-account-tokens">Account Tokens</h2>
 Account tokens have account-specific permissions; they cannot create/delete accounts and can only operate within the bounds of the account for which they were created. They must always be paired with an `account-id` header parameters.
