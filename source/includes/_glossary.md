@@ -1,10 +1,10 @@
 # Glossary
 
-Here are some of the terms we use throughout our documentation, for ease of reference.
+Here are some of the terms we use throughout our documentation for ease of reference.
 
 <h2 id="glossary-prequalify">Pre-qualify</h2>
 `Pre-qualification` is an optional step that you can take advantadge of by calling the specific endpoint.
-This endpoint will perform an analysis using publicly available data to decide whether the business qualifies for an account. This allows you to choose not to offer loans to users that will not qualify, making you UX better.
+This endpoint will perform an analysis using publicly available data to decide whether the user qualifies for an account. This allows you to choose not to offer loans to users that will not qualify, making you UX better.
 
 <h2 id="glossary-tokens">Platform Tokens</h2>
 Two types of JWT tokens can be generated: client and account.
