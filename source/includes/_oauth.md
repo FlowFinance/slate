@@ -73,7 +73,7 @@ Optionally, you may include the header param account-id in which case account-sp
 </aside>
 
 <aside class="notice">
-Note that refresh-tokens are re-generated on every call and access-tokens are valid for 90 minutes.
+Note that refresh-tokens are re-generated on every call and access-tokens are only valid for 90 minutes.
 </aside>
 
 <h3 id="post__api_v1_oauth_login-parameters">Parameters</h3>
