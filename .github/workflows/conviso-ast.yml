@@ -1,0 +1,98 @@
+name: Conviso AST
+
+# Thin stub: clones security-pipelines from Azure Repos at runtime (no GitHub mirror).
+# Install via security-scripts/github-conviso-rollout. Do not mark as required status check.
+# Clone lands in RUNNER_TEMP (not GITHUB_WORKSPACE) so Conviso does not see a nested .git.
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  conviso-ast:
+    name: Conviso AST
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone security-pipelines from Azure Repos
+        env:
+          AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+          SECURITY_PIPELINES_REF: ${{ vars.SECURITY_PIPELINES_REF }}
+          SECURITY_PIPELINES_CLONE_URL: ${{ vars.SECURITY_PIPELINES_CLONE_URL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${AZURE_DEVOPS_PAT:-}" ]; then
+            echo "AZURE_DEVOPS_PAT secret is required to clone security-pipelines from Azure Repos." >&2
+            exit 1
+          fi
+          ref="${SECURITY_PIPELINES_REF:-stable}"
+          clone_url="${SECURITY_PIPELINES_CLONE_URL:-https://dev.azure.com/is2b/Security/_git/security-pipelines}"
+          auth_url="$(printf '%s' "$clone_url" | sed "s#https://#https://pat:${AZURE_DEVOPS_PAT}@#")"
+          dest="${RUNNER_TEMP}/security-pipelines"
+          rm -rf "$dest"
+          git clone --depth 1 --branch "$ref" "$auth_url" "$dest"
+          test -f "$dest/actions/conviso-ast/action.yaml"
+          test -f "$dest/scripts/run-conviso-ast.sh"
+          echo "SECURITY_PIPELINES_DIR=$dest" >> "$GITHUB_ENV"
+
+      - name: Run Conviso AST
+        env:
+          CONVISO_API_KEY: ${{ secrets.CONVISO_API_KEY }}
+          CONVISO_COMPANY_ID: ${{ vars.CONVISO_COMPANY_ID }}
+          CONVISO_GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          FAIL_ON_FINDINGS: 'false'
+          VULN_AUTO_CLOSE: 'true'
+        run: |
+          set -euo pipefail
+          sp="${SECURITY_PIPELINES_DIR:?}"
+          # shellcheck source=/dev/null
+          source "$sp/scripts/conviso-branch-gate-lib.sh"
+
+          asset_name="${{ github.repository }}"
+          company_id="${CONVISO_COMPANY_ID:-}"
+          event_name="$(printf '%s' "${GITHUB_EVENT_NAME:-}" | tr '[:upper:]' '[:lower:]')"
+          dry_run_args=()
+          diff_args=()
+
+          if [ "$event_name" = "pull_request" ] || [ "$event_name" = "pull_request_target" ]; then
+            base_ref='${{ github.event.pull_request.base.ref }}'
+            if [ -z "$base_ref" ]; then
+              base_ref='${{ github.base_ref }}'
+            fi
+            head_ref='${{ github.head_ref }}'
+            if [ -z "$head_ref" ]; then
+              head_ref="$(conviso_branch_gate_short_from_ref '${{ github.ref }}')"
+            fi
+            conviso_branch_gate_export_pipeline_env \
+              "refs/heads/${head_ref}" \
+              "refs/heads/${base_ref}" \
+              "PullRequest"
+            dry_run_args=(--dry-run)
+            if [ -n "$base_ref" ]; then
+              diff_args+=(--diff-base "$base_ref")
+            fi
+          else
+            conviso_branch_gate_export_pipeline_env \
+              '${{ github.ref }}' \
+              '' \
+              'IndividualCI'
+          fi
+
+          bash "$sp/scripts/run-conviso-ast.sh" \
+            --repo-dir "$GITHUB_WORKSPACE" \
+            --rules-file "$sp/rules.yml" \
+            --api-key "${CONVISO_API_KEY}" \
+            --asset-name "$asset_name" \
+            --company-id "$company_id" \
+            --fail-on-findings "${FAIL_ON_FINDINGS}" \
+            --vulnerability-auto-close "${VULN_AUTO_CLOSE}" \
+            "${dry_run_args[@]}" \
+            "${diff_args[@]}"
