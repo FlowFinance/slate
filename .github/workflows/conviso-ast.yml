@@ -1,0 +1,49 @@
+name: Conviso AST
+
+# Thin stub: clones security-pipelines from Azure Repos at runtime (no GitHub mirror).
+# Install via security-scripts/github-conviso-rollout. Do not mark as required status check.
+# Placeholder main is replaced by the rollout script.
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  conviso-ast:
+    name: Conviso AST
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone security-pipelines from Azure Repos
+        env:
+          AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+          SECURITY_PIPELINES_REF: ${{ vars.SECURITY_PIPELINES_REF }}
+          SECURITY_PIPELINES_CLONE_URL: ${{ vars.SECURITY_PIPELINES_CLONE_URL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${AZURE_DEVOPS_PAT:-}" ]; then
+            echo "AZURE_DEVOPS_PAT secret is required to clone security-pipelines from Azure Repos." >&2
+            exit 1
+          fi
+          ref="${SECURITY_PIPELINES_REF:-stable}"
+          clone_url="${SECURITY_PIPELINES_CLONE_URL:-https://dev.azure.com/is2b/Security/_git/security-pipelines}"
+          auth_url="$(printf '%s' "$clone_url" | sed "s#https://#https://pat:${AZURE_DEVOPS_PAT}@#")"
+          rm -rf security-pipelines
+          git clone --depth 1 --branch "$ref" "$auth_url" security-pipelines
+          test -f security-pipelines/actions/conviso-ast/action.yaml
+
+      - name: Run Conviso AST
+        uses: ./security-pipelines/actions/conviso-ast
+        with:
+          conviso-api-key: ${{ secrets.CONVISO_API_KEY }}
+          vulnerability-auto-close: true
+          fail-on-findings: false
+          company-id: ${{ vars.CONVISO_COMPANY_ID }}
