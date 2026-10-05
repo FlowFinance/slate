@@ -1,0 +1,69 @@
+name: Security
+
+on:
+  pull_request:
+    branches: &security_branches [main, master, dev, develop, development, staging, prod, production, 'release*', 'hml*', v1-mybenk]
+  push:
+    branches: *security_branches
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  security:
+    name: Security
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+      SECURITY_PIPELINES_REF: ${{ vars.SECURITY_PIPELINES_REF }}
+      CONFIGCAT_SDK_KEY: ${{ secrets.CONFIGCAT_SDK_KEY }}
+      CONVISO_COMPANY_ID: ${{ vars.CONVISO_COMPANY_ID }}
+      DEFAULT_ENABLE_CONVISO_AST: 'true'
+      DEFAULT_CONVISO_GATE_SEVERITIES: critical,high
+      ORCA_FAIL_ON_FINDINGS: ${{ vars.ORCA_FAIL_ON_FINDINGS || 'true' }}
+      ORCA_FAIL_ON_SEVERITIES: ${{ vars.ORCA_FAIL_ON_SEVERITIES || 'critical' }}
+      ORCA_IAC_FAIL_ON_FINDINGS: ${{ vars.ORCA_IAC_FAIL_ON_FINDINGS || 'true' }}
+      ORCA_IAC_FAIL_ON_SEVERITIES: ${{ vars.ORCA_IAC_FAIL_ON_SEVERITIES || 'critical' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Clone security-pipelines
+        run: |
+          set -euo pipefail
+          : "${AZURE_DEVOPS_PAT:?AZURE_DEVOPS_PAT is required}"
+          rm -rf security-pipelines
+          git -c http.extraheader="AUTHORIZATION: basic $(printf ':%s' "$AZURE_DEVOPS_PAT" | base64 | tr -d '\n')" \
+            clone --depth 1 --branch "${SECURITY_PIPELINES_REF:-stable}" \
+            https://dev.azure.com/is2b/Security/_git/security-pipelines security-pipelines
+          rm -rf security-pipelines/.git
+
+      - id: flags
+        uses: ./security-pipelines/actions/evaluate-configcat
+
+      - uses: ./security-pipelines/actions/conviso-ast
+        if: steps.flags.outputs.SECURITY_ENABLE_GITHUB_SECURITY == 'true' && steps.flags.outputs.SECURITY_ENABLE_CONVISO_AST == 'true'
+        with:
+          conviso-api-key: ${{ secrets.CONVISO_API_KEY }}
+          company-id: ${{ vars.CONVISO_COMPANY_ID }}
+
+      - uses: ./security-pipelines/actions/orca-image
+        if: steps.flags.outputs.SECURITY_ENABLE_GITHUB_SECURITY == 'true' && steps.flags.outputs.SECURITY_ENABLE_ORCA_IMAGE == 'true'
+        with:
+          api-token: ${{ secrets.ORCA_SECURITY_API_TOKEN }}
+          fail-on-findings: ${{ vars.ORCA_FAIL_ON_FINDINGS || 'true' }}
+          fail-on-severities: ${{ vars.ORCA_FAIL_ON_SEVERITIES || 'critical' }}
+
+      - uses: ./security-pipelines/actions/orca-iac
+        if: steps.flags.outputs.SECURITY_ENABLE_GITHUB_SECURITY == 'true' && steps.flags.outputs.SECURITY_ENABLE_ORCA_IAC == 'true'
+        with:
+          api-token: ${{ secrets.ORCA_SECURITY_API_TOKEN }}
+          fail-on-findings: ${{ vars.ORCA_IAC_FAIL_ON_FINDINGS || 'true' }}
+          fail-on-severities: ${{ vars.ORCA_IAC_FAIL_ON_SEVERITIES || 'critical' }}
